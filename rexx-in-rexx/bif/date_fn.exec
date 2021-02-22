@@ -147,7 +147,7 @@ date: procedure
   if arg() > 5 then return
   numeric digits 18
   if arg(1,'E') then
-    if pos(translate(left(arg(1),1)),"BDEJMNOSUW")=0 then return
+    if pos(translate(left(arg(1),1)),"CBDEJMNOSUW")=0 then return
   if arg(3,'E') then
     if pos(translate(left(arg(3),1)),"BDENOSU")=0 then return
   /* If the third argument is given then the second is mandatory. */
@@ -242,14 +242,22 @@ used. */
     /* Convert Month & Day to Days of year. */
     if datatype(Month,'W')=0 | datatype(Day,'W')=0 | datatype(Year,'W')=0 then
        return
-    Days = word('0 31 59 90 120 151 181 212 243 273 304 334',Month) +,
-      (Month>2)*Leap(Year) + Day-1
-    end
+    Days = word('0 31 59 90 120 151 181 212 243 273 304 334',Month) + ,
+    (Month>2)*Leap(Year) + Day-1
+  end
   else
     if datatype(Value,'W')=0 then return
-  if InOption == 'D' then do
+    if InOption == 'D' then do
     Year = left('DATE'('S'),4)
     Days = Value - 1 /* 'D' includes current day */
+  end
+    if InOption = 'C' then do
+      Year = left(right(nativeDate(),4),1)||'000'
+      Days = Value - 1 /* 'C' includes current day */
+    end
+    if InOption = 'J' then do
+      Year = right(nativeDate(),4)
+      Days = Value - 1 /* 'C' includes current day */
     end
   /* Convert to BaseDays */
   if InOption <> 'B' then
@@ -286,12 +294,22 @@ DateFormat:
   select
     when format == 'B' then
       return Base
+    when format = 'C' then
+      do
+	yy=Year
+	y0=left(yy,1)||'000' /* start of century */
+	yp=(yy-y0) /* preceding years */
+	ly=(yp-1)%4 /* number of leap years */
+	if y0//4=0 then ly=ly+1 /* if start of century way a leap year */
+	dca=365*yp+ly+Days
+	return dca
+      end
     when format == 'D' then
       return Days
     when format == 'E' then return,
     right(Day,2,'0')(arg(3))right(Month,2,'0')(arg(3))right(Year,2,'0')
     when format == 'J' then return,
-	   Year||right(Day,3,'0')
+	   Year||right(Days,3,'0')
     when format == 'M' then
       return word(Months,Month)
     when format == 'N' then
