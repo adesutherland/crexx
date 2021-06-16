@@ -1,7 +1,7 @@
 
 /* These are the testcases for the Classic Rexx 4.02 compatible bRexx/NetRexx Date() */
 /* trace 'r' */
-call load "date_fn.exec"
+call load "date_fn.rexx"
 say 'Date single options'
 say "date() -->" date()
 say "date('W') -->" date('W')

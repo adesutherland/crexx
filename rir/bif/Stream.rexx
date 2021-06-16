@@ -1,7 +1,6 @@
  /************************************************************************
  *.  S T R E A M    9.7.8
  ************************************************************************/
-
  /* Third argument is only correct with 'C' */
  if !Bif_ArgExists.2 & translate(left(!Bif_Arg.2, 1)) == 'C' then
    ArgData = 'rANY rCDS rANY'

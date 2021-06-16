@@ -1,7 +1,6 @@
  /************************************************************************
  *.  V A L U E   9.8.6
  ************************************************************************/
- 
  if !Bif_ArgExists.3 then ArgData = 'rANY oANY oANY'
  else ArgData = 'rSYM oANY oANY'
  call CheckArgs ArgData

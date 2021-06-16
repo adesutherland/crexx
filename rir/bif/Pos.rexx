@@ -1,7 +1,6 @@
  /************************************************************************
  *.  P O S    9.3.14
  ************************************************************************/
-
  call CheckArgs 'rANY rANY oWHOLE>0'
  
  Needle   = !Bif_Arg.1
@@ -14,3 +13,4 @@
    if substr(Haystack, i, length(Needle)) == Needle then return i
  end i
  return 0
+ 
