@@ -23,6 +23,4 @@ all::	$(RX_OBJS)
 .PHONY: clean
 clean: 
 	rm -f *.rxbin	
-	find . -name "*.rxas" | awk '{$$2 = $$1 ; sub ( /\.rxas/,".rexx",$$1 ) ; print $$1 }' | xargs rm -f
-
-
+	find . -name "*.rexx" | awk '{$$2 = $$1 ; sub ( /\.rexx/,".rxas",$$1 ) ; print $$1 }' | xargs rm -f
