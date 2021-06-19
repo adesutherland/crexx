@@ -2,9 +2,9 @@
 
 .globals=0
 
-main()   .locals=6
-   time r2
-   say r2
+main()   .locals=7
+   time r6
+   say r6
    say "\n"
    * Line 2: {DO}
    * Line 2: i=1
@@ -23,7 +23,7 @@ l20:
    * Line 2: {DO-END}
    br l20
 l13:
-   time r3
-   say r3
+   time r6
+   say r6
    say "\n"
    exit
