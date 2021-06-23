@@ -1,0 +1,93 @@
+/* REXX */
+/* Test case generated from abbrev.in */
+Signal On Syntax
+Signal On Novalue
+cnt.=0
+/* ABBREV */
+/* These from the Rexx book. */
+id=3
+x=abbrev('XXX')
+Call err "SYNTAX" ID
+R3:
+id=''
+/*s: x=abbrev('XXX','XXX',3)*/
+id=5
+x=abc
+Call err "NOVALUE" ID
+R5:
+id=''
+Call ver abbrev('Print','Pri')          , 1
+Call ver abbrev('PRINT','Pri')          , 0
+Call ver abbrev('PRINT','PRI',4)        , 0
+Call ver abbrev('PRINT','PRY')          , 0
+Call ver abbrev('PRINT','')             , 1
+Call ver abbrev('PRINT','',1)           , 0
+/* These from Mark Hessling. */
+Call ver abbrev('information','info',4) , 1
+Call ver abbrev('information','',0)     , 1
+Call ver abbrev('information','Info',4) , 0
+Call ver abbrev('information','info',5) , 0
+Call ver abbrev('information','info ')  , 0
+Call ver abbrev('information','info',3) , 1
+Call ver abbrev('info','information',3) , 0
+Call ver abbrev('info','info',5)        , 0
+x=abbrev('XXX')
+id=22
+x=abbrev(aa,bb)
+Call err "NOVALUE" ID
+R22:
+id=''
+Call over
+over:
+Parse Arg how
+Say how
+Say cnt.0ok  'ok'
+Say cnt.0err 'errors'
+Select
+  When how<>'' Then   Exit 12
+  When cnt.err=0 Then Exit 0
+  Otherwise           Exit 8
+  End
+
+syntax:
+If id<>'' Then Do
+  say 'expected syntax error in case' id
+  cnt.0ok=cnt.0ok+1
+  Signal On Syntax
+  Signal value('R'id)
+  End
+Else Do
+  say 'Unexpected syntax error in line' sigl
+  cnt.0err=cnt.0err+1
+  Call over 'premature end'
+  End
+
+novalue:
+If id<>'' Then Do
+  say 'Expected novalue raised in case' id
+  cnt.0ok=cnt.0ok+1
+  Signal On Novalue
+  Signal value('R'id)
+  End
+Else Do
+  say 'Unexpected syntax error in line' sigl
+  cnt.0err=cnt.0err+1
+  Call over 'premature end'
+  End
+
+ver:
+Parse Arg a,b
+If a=b Then
+  cnt.0ok=cnt.0ok+1
+Else Do
+  say 'verify error in case' sigl
+  cnt.0err=cnt.0err+1
+  Say cnt.0err
+  End
+Return
+
+err:
+  Parse Arg w
+  Say 'Expected' w 'condition not raised id='id
+  cnt.0err=cnt.0err+1
+  Return

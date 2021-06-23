@@ -1,0 +1,6 @@
+parse arg stmt
+interpret 'rc =' stmt
+if rc = 0 then rc = 'ok '
+if rc = 1 then rc = 'fail'
+say rc stmt
+
