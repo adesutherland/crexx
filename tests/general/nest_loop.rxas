@@ -1,0 +1,42 @@
+/* REXX COMPILER PoC */
+
+.globals=0
+
+main()   .locals=6
+   * Line 1: {DO}
+   * Line 1: i=1
+   load r1,1
+   * Line 1: to 10
+   load r2,10
+l22:
+   * Line 1: to 10
+   igt r0,r1,r2
+   brt l8,r0
+   * Line 2: {DO}
+   * Line 2: j=1
+   load r3,1
+   * Line 2: to 5
+   load r4,5
+l20:
+   * Line 2: to 5
+   igt r0,r3,r4
+   brt l14,r0
+   * Line 3: say i j
+   imaster r1
+   sprime r1
+   imaster r3
+   sprime r3
+   sconcat r5,r1,r3
+   ssay r5
+   say "\n"
+   * Line 2: {Implicit "BY 1"}
+   inc r3
+   * Line 2: {DO-END}
+   br l20
+l14:
+   * Line 1: {Implicit "BY 1"}
+   inc r1
+   * Line 1: {DO-END}
+   br l22
+l8:
+   exit

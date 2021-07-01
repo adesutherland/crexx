@@ -1,0 +1,40 @@
+/* REXX COMPILER PoC */
+
+.globals=0
+
+main()   .locals=5
+   * Line 1: n=5
+   load r1,5
+   * Line 2: f = 1
+   load r2,1
+   * Line 3: {DO}
+   * Line 3: j = 2
+   load r3,2
+   * Line 3: to n
+l22:
+   * Line 3: to n
+   igt r0,r3,r1
+   brt l15,r0
+   * Line 4: f = f * j
+   imult r2,r2,r3
+   * Line 3: {Implicit "BY 1"}
+   inc r3
+   * Line 3: {DO-END}
+   br l22
+l15:
+   * Line 6: say f
+   imaster r2
+   sprime r2
+   ssay r2
+   say "\n"
+   * Line 7: say n "factorial is" f
+   imaster r1
+   sprime r1
+   load r4,"factorial is"
+   sconcat r4,r1,r4
+   imaster r2
+   sprime r2
+   sconcat r4,r4,r2
+   ssay r4
+   say "\n"
+   exit
