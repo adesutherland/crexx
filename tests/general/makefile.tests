@@ -18,6 +18,7 @@
 
 RX_SRC		:= $(wildcard *.rexx)
 AS_MXA		:= $(wildcard *.mxas)
+AS_RXA		:= $(wildcard *.rxas)
 AS_SRC		:= $(AS_MXA:.mxas=.rxas)
 RX_BIN		:= $(RX_SRC:.rexx=.rxbin)
 
@@ -26,7 +27,9 @@ RX_BIN		:= $(RX_SRC:.rexx=.rxbin)
 #
 # target all compiles
 #
-all::	$(AS_SRC) $(RX_BIN)
+all::	 $(AS_SRC) $(RX_BIN)
+
+.PRECIOUS: %.rxas
 
 #
 # target clean removes compiled products
