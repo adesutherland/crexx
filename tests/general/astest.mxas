@@ -1,0 +1,49 @@
+#include "skeleton.inc"
+* Tests
+
+test_seq()     .locals=5
+               load r3,1 * One argument when calling expect_true/false
+               say "Testing seq #1 ..."
+               load r1,"abcdefg"
+               load r2,"abcdefg"
+               seq r4,r1,r2
+               call r0,expect_true(),r3
+               say "Testing seq #2 ..."
+               load r2,"abcdefh"
+               seq r4,r1,r2
+               call r0,expect_false(),r3
+               say "Testing seq #3 ..."
+               seq r4,r1,"abcdefg"
+               call r0,expect_true(),r3
+               say "Testing seq #4 ..."
+               seq r4,r1,"abcdefgh"
+               call r0,expect_false(),r3
+               say "Testing seq #5 ..."
+               seq r4,r1,"abcdefh"
+               call r0,expect_false(),r3
+               ret
+
+test_sne()     .locals=5
+               load r3,1 * One argument when calling expect_true/false
+               say "Testing sne #1 ..."
+               load r1,"abcdefg"
+               load r2,"abcdefg"
+               sne r4,r1,r2
+               call r0,expect_false(),r3
+               say "Testing sne #2 ..."
+               load r2,"abcdefh"
+               sne r4,r1,r2
+               call r0,expect_true(),r3
+               say "Testing sne #3 ..."
+               sne r4,r1,"abcdefg"
+               call r0,expect_false(),r3
+               say "Testing sne #4 ..."
+               sne r4,r1,"abcdefgh"
+               call r0,expect_true(),r3
+               say "Testing sne #5 ..."
+               sne r4,r1,"abcdefh"
+               call r0,expect_true(),r3
+               ret
+
+	
+	
