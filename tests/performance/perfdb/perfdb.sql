@@ -42,7 +42,7 @@ create table platform
 );
 
 insert into platform(id, name, cpu, brand, osname, oslevel, arch, bitness, endian, clock_speed, details)
-values( 1, 'Raspberry Pi 4 rev 1.4', 'Broadcom BCM2711, Quad core Cortex-A72 (ARM v8)', 'Raspberry', 'Ubuntu', '20.04', 1, 64, 0, 1500000000, '8GB memory' );
+values( 1, 'Raspberry Pi 4 rev 1.4', 'Broadcom BCM2711, Quad core Cortex-A72 (ARM v8)', 'Raspberry', 'Ubuntu 20.04.2 LTS', '20.04', 1, 64, 0, 1500000000, '8GB memory' );
 
 drop table if exists benchmark;
 create table benchmark
