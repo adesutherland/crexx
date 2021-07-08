@@ -14,11 +14,6 @@
  */
 #define NTHREADED
 
-/*
- * VM/370 does not support UTF
- */
-#define NUTF8
-
 /* Shocking hack ... */
 #define snprintf(s,sz,...) sprintf(s,__VA_ARGS__)
 

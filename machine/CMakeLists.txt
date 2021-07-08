@@ -19,5 +19,4 @@ else()
 )
 endif()
 
-add_library(machine STATIC rxvminst.h rxvminst.c instrset.h instrmiss.h ../platform/platform.h)
-target_include_directories(machine PUBLIC ../platform)
+add_library(machine STATIC rxvminst.h rxvminst.c instrset.h instrmiss.h)

@@ -13,23 +13,17 @@
 int scan(Assembler_Context* s, char *buff_end) {
     int depth;
 
+    regular:
 /*!re2c
     re2c:yyfill:enable = 0;
-*/
-    regular:
 
-    /* Character Encoding Specifics  */
-    /*!include:re2c "encoding.re" */
-
-/*!re2c
+    whitespace = [ \t\v\f]+;
     digit = [0-9];
-    eol2 = "\r\n";
-    eol1 = [\r] | [\n];
-    eof = [\000] ;
-    any = [^] \ eof ;
-
+    letter = [a-zA-Z];
+    any = [\x01-\xFF];
+    eof = [\x00];
     slit = ["] ( (any\["\n\r]) | ( [\\]["] ) )* ["];
-    clit = (['] (any\['\n\r]) [']) | ("\'\\" (any\[\n\r]) [']);
+    clit = (['] (any\['\n\r]) [']) | ("\'\\" (any\['\n\r]) [']);
     float = [-+]? (digit* "." digit+ | digit+ ".");
     integer = [-+]? digit+;
     rreg = 'r' digit+;
@@ -41,17 +35,16 @@ int scan(Assembler_Context* s, char *buff_end) {
       depth = 1;
       goto comment;
     }
-    eol1 {
+    "\r\n" {
        s->line++;
        s->linestart = s->cursor+1;
        return(NEWLINE);
     }
-    eol2 {
+    [\r] | [\n] {
        s->line++;
-       s->linestart = s->cursor+2;
+       s->linestart = s->cursor;
        return(NEWLINE);
     }
-
     "*" [^\r\n]* { goto regular; }
 
     float {return(FLOAT);}

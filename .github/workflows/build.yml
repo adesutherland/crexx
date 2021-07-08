@@ -71,13 +71,6 @@ jobs:
           ./debug/rxbvm -v
         shell: bash
 
-      - name: Build CMS lexers
-        run: |
-          ${{ runner.temp }}/release/re2c/re2c -I S370 -o S370/rxasscan.c assembler/rxasscan.re
-          ${{ runner.temp }}/release/re2c/re2c -I S370 -o S370/rxcposcn.c compiler/rxcposcn.re
-          ${{ runner.temp }}/release/re2c/re2c -I S370 -o S370/rexbscan.c compiler/rxcpbscn.re
-        shell: bash
-
       - name: Upload Executable
         if: startsWith(github.ref, 'refs/tags/')
         uses: actions/upload-artifact@v2
@@ -106,12 +99,6 @@ jobs:
           name: rxasscan.c
           path: ${{ runner.temp }}/release/assembler/rxasscan.c
 
-      - name: Upload rxasscan.c.s370
-        uses: actions/upload-artifact@v2
-        with:
-          name: rxasscan.c.s370
-          path: S370/rxasscan.c
-
       - name: Upload rxasgrmr.c
         uses: actions/upload-artifact@v2
         with:
@@ -130,12 +117,6 @@ jobs:
           name: rxcposcn.c
           path: ${{ runner.temp }}/release/compiler/rxcposcn.c
 
-      - name: Upload rxcposcn.c.s370
-        uses: actions/upload-artifact@v2
-        with:
-          name: rxcposcn.c.s370
-          path: S370/rxcposcn.c
-
       - name: Upload rxcpopgr.c
         uses: actions/upload-artifact@v2
         with:
@@ -153,12 +134,6 @@ jobs:
         with:
           name: rexbscan.c
           path: ${{ runner.temp }}/release/compiler/rexbscan.c
-
-      - name: Upload rexbscan.c.s370
-        uses: actions/upload-artifact@v2
-        with:
-          name: rexbscan.c.s370
-          path: S370/rexbscan.c
 
       - name: Upload rxcpbgmr.c
         uses: actions/upload-artifact@v2
@@ -196,11 +171,11 @@ jobs:
         name: instrset.h
         path: machine
 
-    - name: Download rxasscan.c.s370
+    - name: Download rxasscan.c
       uses: actions/download-artifact@v2
       with:
-        name: rxasscan.c.s370
-        path: S370
+        name: rxasscan.c
+        path: assembler
 
     - name: Download rxasgrmr.c
       uses: actions/download-artifact@v2
@@ -214,11 +189,11 @@ jobs:
         name: rxasgrmr.h
         path: assembler
 
-    - name: Download rxcposcn.c.s370
+    - name: Download rxcposcn.c
       uses: actions/download-artifact@v2
       with:
-        name: rxcposcn.c.s370
-        path: S370
+        name: rxcposcn.c
+        path: compiler
 
     - name: Download rxcpopgr.c
       uses: actions/download-artifact@v2
@@ -232,11 +207,11 @@ jobs:
         name: rxcpopgr.h
         path: compiler
 
-    - name: Download rexbscan.c.s370
+    - name: Download rexbscan.c
       uses: actions/download-artifact@v2
       with:
-        name: rexbscan.c.s370
-        path: S370
+        name: rexbscan.c
+        path: compiler
 
     - name: Download rxcpbgmr.c
       uses: actions/download-artifact@v2
