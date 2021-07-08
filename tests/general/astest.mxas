@@ -44,6 +44,3 @@ test_sne()     .locals=5
                sne r4,r1,"abcdefh"
                call r0,expect_true(),r3
                ret
-
-	
-	
