@@ -1,5 +1,4 @@
 -- performance database for crexx
-
 drop table if exists architecture; 
 create table architecture
 ( id   	     integer not null primary key,
@@ -23,7 +22,6 @@ insert into architecture(id, name, details)
 values( 7, 'Power', 'IBM Power' );
 insert into architecture(id, name, details)
 values( 8, 'armv6l', 'ARM V6, 32 bit' );
-
 
 drop table if exists platform;
 create table platform
@@ -52,12 +50,33 @@ create table benchmark
   details    varchar(255)
 );
 
+drop table if exists implementation;
+create table implementation
+( id   	     integer not null primary key,
+  name	     varchar(50) not null,
+  version    varchar(50) not null,
+  details    varchar(255)
+);
+
+insert into implementation(id, name, version, details)
+values(1, 'cRexx', 'pre-release', 'rexx level b');
+insert into implementation(id, name, version, details)
+values(2, 'cRexx-rxasm', 'pre-release', 'rexx assembler');
+insert into implementation(id, name, version, details)
+values(3, 'cRexx', 'pre-release', 'rexx level c');
+insert into implementation(id, name, version, details)
+values(4, 'Regina', '', '');
+insert into implementation(id, name, version, details)
+values(5, 'ooRexx', '5.00B', '');
+
 drop table if exists performance;
 create table performance
 ( id   	     integer not null primary key,
   time	     datetime not null,
   platform   integer not null,
+  impl	     intereger not null,
   benchmark  integer not null,
+  foreign key(impl) references implementation(id),
   foreign key(platform) references platform(id)
 );
 
